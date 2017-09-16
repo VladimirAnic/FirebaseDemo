@@ -7,8 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -16,6 +18,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     Button btngetdata;
 
+    private FirebaseDatabase mDatabase;
+
+    String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,24 +30,29 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         btngetdata.setOnClickListener(this);
 
+        mDatabase = FirebaseDatabase.getInstance();
+
+
+
+
     }
 
     @Override
     public void onClick(View v) {//https://stackoverflow.com/questions/42709084/android-firebase-retrieve-all-data-in-single-path-and-store-it-in-sqlite
-        FirebaseDatabase.getInstance().getReference("fir-demo-a022a").child("messageText")
+        final DatabaseReference myRef;
+        myRef = mDatabase.getReferenceFromUrl(("https://fir-demo-a022a.firebaseio.com/"+user));
+        myRef.child("messageText")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                           for(DataSnapshot snapshot1 : snapshot.getChildren()){
-                               Toast.makeText(getApplicationContext(), (snapshot1.getValue().toString()), Toast.LENGTH_SHORT).show();
-                               Log.v("podatak:","   " + dataSnapshot.getValue(String.class));
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                // do SQLite insertion for each data here
+                                //Student student = new Student(snapshot.getValue().toString());
+                                //FirebasePullDBHelper.getInstance(getApplicationContext()).insertStudents(student);
+                                Toast.makeText(getApplicationContext(), snapshot.getValue().toString(), Toast.LENGTH_SHORT).show();
+                                Log.v("!!!!podatak:", "  " + snapshot.getValue(String.class));
                             }
-                            // do SQLite insertion for each data here
-                           // Student student = new Student(snapshot.getValue().toString());
-                            //FirebasePullDBHelper.getInstance(getApplicationContext()).insertStudents(student);
 
-                        }
 
                     }
 
