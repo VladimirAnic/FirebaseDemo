@@ -67,7 +67,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                 break;
 
             case R.id.btnLoginAnon:
-                mAuth.signInAnonymously()
+                mAuth.signInAnonymously()//https://medium.com/@changulpaye/firebase-anonymous-authentication-in-android-317b98c56a09
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
