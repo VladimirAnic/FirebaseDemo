@@ -44,14 +44,14 @@ public class MainActivity extends AppCompatActivity {
         String ip = String.format("%d.%d.%d.%d", (ipAddress & 0xff),(ipAddress >> 8 & 0xff),(ipAddress >> 16 & 0xff),(ipAddress >> 24 & 0xff));
         if(FirebaseAuth.getInstance().getCurrentUser() == null) {
             // Start sign in/sign up activity
-           /* startActivityForResult(
+            startActivityForResult(
                     AuthUI.getInstance()
                             .createSignInIntentBuilder()
                             .build(),
                     SIGN_IN_REQUEST_CODE
-            );*/
-            startActivity(new Intent(this, SignInActivity.class));
-            finish();
+            );
+           /* startActivity(new Intent(this, SignInActivity.class));
+            finish();*/
             return;
         } else {
             // User is already signed in. Therefore, display
