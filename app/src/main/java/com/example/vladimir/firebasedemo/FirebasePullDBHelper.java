@@ -45,7 +45,7 @@ public class FirebasePullDBHelper extends SQLiteOpenHelper {
     static final String SELECT_ALL_STUDENTS = "SELECT * FROM " + Schema.TABLE_STUDENTS;
 
 
-    public void insertStudentss(Student students){
+    public void insertStudents(Student students){
         ContentValues contentValues = new ContentValues();
         contentValues.put(Schema.FANDLNAME, students.getmFAndLName());
         SQLiteDatabase writableDatabase = this.getWritableDatabase();

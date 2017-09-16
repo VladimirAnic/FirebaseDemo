@@ -63,7 +63,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                                 .build(),
                         SIGN_IN_REQUEST_CODE
                 );
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, SignInActivity.class));
                 break;
 
             case R.id.btnLoginAnon:
