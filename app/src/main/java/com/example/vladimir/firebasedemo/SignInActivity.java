@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,7 +19,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     private FirebaseDatabase mDatabase;
 
-    String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//    String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,20 +39,23 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {//https://stackoverflow.com/questions/42709084/android-firebase-retrieve-all-data-in-single-path-and-store-it-in-sqlite
         final DatabaseReference myRef;
-        myRef = mDatabase.getReferenceFromUrl(("https://fir-demo-a022a.firebaseio.com/"));
+
+        myRef = mDatabase.getReference();
         myRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                           for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                 // do SQLite insertion for each data here
                                 //Student student = new Student(snapshot.getValue().toString());
                                 //FirebasePullDBHelper.getInstance(getApplicationContext()).insertStudents(student);
-                                ChatMessage cm=snapshot.getValue(ChatMessage.class);
-                               // Toast.makeText(getApplicationContext(), cm.getMessageText(), Toast.LENGTH_SHORT).show();
-                                Log.v("!!!!podatak:", "  " + cm.getMessageText());
+                                //Toast.makeText(getApplicationContext(), snapshot.getValue().toString(), Toast.LENGTH_SHORT).show();
+                                //Log.v("!!!!podatak:", "  " + snapshot.getValue(String.class));
                             }
+                        ChatMessage map=dataSnapshot.getValue(ChatMessage.class);
+                        Toast.makeText(getApplicationContext(), map.getMessageText()/*.toString()*/, Toast.LENGTH_SHORT).show();
+                        Log.v("!!!!podatak:", "  " + map.getMessageText());
 
-                        Log.v("!!!!podatak:", "  " + dataSnapshot.getChildren().toString());
+
                     }
 
                     @Override
