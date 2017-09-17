@@ -50,18 +50,18 @@ public class MainActivity extends AppCompatActivity {
                             .build(),
                     SIGN_IN_REQUEST_CODE
             );
-           /* startActivity(new Intent(this, SignInActivity.class));
-            finish();*/
+            startActivity(new Intent(this, SignInActivity.class));
+            finish();
             return;
         } else {
             // User is already signed in. Therefore, display
             // a welcome Toast
-            /*Toast.makeText(this,
+            Toast.makeText(this,
                     "Welcome " + FirebaseAuth.getInstance()
                             .getCurrentUser()
                             .getDisplayName(),
                     Toast.LENGTH_LONG)
-                    .show();*/
+                    .show();
             Toast.makeText(this, ip, Toast.LENGTH_LONG).show();
             // Load chat room contents
             displayChatMessages();
@@ -76,18 +76,21 @@ public class MainActivity extends AppCompatActivity {
 
                 // Read the input field and push a new instance
                 // of ChatMessage to the Firebase database
+                if(input.getText()!=null)
+                {
+                    FirebaseDatabase.getInstance()
+                            .getReference()
+                            .push()
+                            .setValue(new ChatMessage(input.getText().toString(),
+                                    FirebaseAuth.getInstance()
+                                            .getCurrentUser()
+                                            .getDisplayName())
+                            );
 
-                FirebaseDatabase.getInstance()
-                        .getReference()
-                        .push()
-                        .setValue(new ChatMessage(input.getText().toString(),
-                                FirebaseAuth.getInstance()
-                                        .getCurrentUser()
-                                        .getDisplayName())
-                        );
+                    // Clear the input
+                    input.setText("");
+                }
 
-                // Clear the input
-                input.setText("");
 
             }
         });
@@ -149,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
                 R.layout.message, FirebaseDatabase.getInstance().getReference()) {
             @Override
             protected void populateView(View v, ChatMessage model, int position) {
+
                 // Get references to the views of message.xml
                 TextView messageText = (TextView)v.findViewById(R.id.message_text);
                 TextView messageUser = (TextView)v.findViewById(R.id.message_user);

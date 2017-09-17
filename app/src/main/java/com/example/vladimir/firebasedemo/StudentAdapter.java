@@ -17,6 +17,12 @@ public class StudentAdapter extends BaseAdapter {
     private ArrayList<Student> mStudents;
     public StudentAdapter(ArrayList<Student> students) { mStudents = students; }
 
+    public StudentAdapter(){
+        ArrayList<Student> temp=new ArrayList<>();
+        temp.add(0, new Student(""));
+        mStudents=temp;
+    }
+
     @Override
     public int getCount() {
         return this.mStudents.size();
@@ -46,9 +52,11 @@ public class StudentAdapter extends BaseAdapter {
         }
         Student student = this.mStudents.get(position);
         studentViewHolder.tvFandLName.setText(student.getmFAndLName());
-
+        notifyDataSetChanged();
         return convertView;
     }
+
+
 
 
     public static class ViewHolder {
@@ -57,5 +65,15 @@ public class StudentAdapter extends BaseAdapter {
         public ViewHolder(View taskView) {
             tvFandLName = (TextView) taskView.findViewById(R.id.tvFandLName);
         }
+    }
+    public void deleteS() {
+
+        this.mStudents.clear();
+        notifyDataSetChanged();
+
+    }
+
+    public void setmStudents(ArrayList<Student> mStudents) {
+        this.mStudents = mStudents;
     }
 }

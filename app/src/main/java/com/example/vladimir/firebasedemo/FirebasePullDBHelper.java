@@ -54,13 +54,14 @@ public class FirebasePullDBHelper extends SQLiteOpenHelper {
     }
 
 
-    public ArrayList<String> getAllStudents() {
+    public ArrayList<Student> getAllStudents() {
         SQLiteDatabase writeableDatabase = this.getWritableDatabase();
         Cursor userCursor = writeableDatabase.rawQuery(SELECT_ALL_STUDENTS, null);
-        ArrayList<String> students = new ArrayList<>();
+        ArrayList<Student> students = new ArrayList<>();
         if (userCursor.moveToFirst()) {
             do {
                 String FAndLName = userCursor.getString(0);
+                students.add(new Student(FAndLName));
             } while (userCursor.moveToNext());
         }
         userCursor.close();
