@@ -1,5 +1,6 @@
 package com.example.vladimir.firebasedemo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -23,8 +24,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     private FirebaseDatabase mDatabase;
 
+    int i;
+
     ListView lvdata;
     StudentAdapter mStudentAdapter;
+    DatabaseReference myRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +52,12 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
 
 
-        final DatabaseReference myRef;
+
         myRef = mDatabase.getReferenceFromUrl(("https://fir-demo-a022a.firebaseio.com/"));
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                int i;
+
                 mStudentAdapter.deleteS();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     // do SQLite insertion for each data here
@@ -113,13 +117,64 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {//https://stackoverflow.com/questions/42709084/android-firebase-retrieve-all-data-in-single-path-and-store-it-in-sqlite
         switch (v.getId()) {
             case R.id.btngetdata:
-
+                myRef.removeValue();
                 break;
             case R.id.btSaveDB:
-                /*myRef = mDatabase.getReferenceFromUrl(("https://fir-demo-a022a.firebaseio.com/"));
+
+               /* myRef = mDatabase.getReferenceFromUrl(("https://fir-demo-a022a.firebaseio.com/"));
                 myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        int i;
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            // do SQLite insertion for each data here
+                            ChatMessage cm = snapshot.getValue(ChatMessage.class);
+                            Student student = new Student(cm.getMessageText());
+                            boolean flag=false;
+
+                            for(i=0; i<studenti.size();i++)
+                            {
+                                if(studenti.get(i).getmFAndLName().equals(student.getmFAndLName()))
+                                {
+                                    flag=true;
+                                    Log.v("!!!!!jednaki su", studenti.get(i).getmFAndLName());
+                                    break;
+                                }
+
+                            }
+                            Log.v("!!!!studenti1:", "  " + studenti);
+                            if(flag)
+                            {
+                                flag = false;
+                            }
+                            else
+                            {
+                                studenti.add(i,student);
+
+
+                            }
+                            Log.v("!!!!studenti2:", "  " + studenti);
+                            // Toast.makeText(getApplicationContext(), student.toString(), Toast.LENGTH_SHORT).show();
+                            //Log.v("!!!!podatak u bazi:", "  " +student.toString());
+
+                            // Toast.makeText(getApplicationContext(), cm.getMessageText(), Toast.LENGTH_SHORT).show();
+                            Log.v("!!!!podatak:", "  " + cm.getMessageText());
+                            //mStudentAdapter.notifyDataSetChanged();
+
+                            FirebasePullDBHelper.getInstance(getApplicationContext()).insertStudents(student);
+                            Log.v("!!!!uneseni student1:", "  " + student.getmFAndLName());
+                        }
+                        Log.v("!!!!studenti4:", "  " + studenti);
+                        ArrayList<Student> temp=studenti;
+
+
+
+
+
+
+
+                        //  Log.v("!!!!podatak:", "  " + dataSnapshot.getChildren().toString());
+                        /*
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             // do SQLite insertion for each data here
                             ChatMessage cm = snapshot.getValue(ChatMessage.class);
@@ -137,20 +192,30 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                         mStudentAdapter.deleteS();
                         mStudentAdapter.setmStudents(loadStudents());
 
-                        //  Log.v("!!!!podatak:", "  " + dataSnapshot.getChildren().toString());
-                    }
+                        //  Log.v("!!!!podatak:", "  " + dataSnapshot.getChildren().toString());*/
 
+                    //}
+/*
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
 
                     }
-                });
-                break;*/
+                });*/
+                FirebasePullDBHelper baza = new FirebasePullDBHelper(getApplicationContext());
+                for(i=0; i <studenti.size();i++)
+                {
+                   if((baza.checkStudents(studenti.get(i))) == true) {
+                        baza.insertStudents(studenti.get(i));
+                        Log.v("!!!!podatak123:", "  " + studenti.get(i));
+                    }
+                }
+                startActivity(new Intent(this, GraphActivity.class));
+                studenti.clear();
+                mStudentAdapter.deleteS();
+                finish();
+                break;
         }
     }
 
-    private ArrayList<Student> loadStudents() {
-//        mStudentAdapter.deleteS();
-        return FirebasePullDBHelper.getInstance(this).getAllStudents();
-    }
+
 }
