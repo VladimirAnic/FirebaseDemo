@@ -40,20 +40,20 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {//https://stackoverflow.com/questions/42709084/android-firebase-retrieve-all-data-in-single-path-and-store-it-in-sqlite
         final DatabaseReference myRef;
-        myRef = mDatabase.getReferenceFromUrl(("https://fir-demo-a022a.firebaseio.com/"+user));
-        myRef.child("messageText")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef = mDatabase.getReferenceFromUrl(("https://fir-demo-a022a.firebaseio.com/"));
+        myRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                           for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                 // do SQLite insertion for each data here
                                 //Student student = new Student(snapshot.getValue().toString());
                                 //FirebasePullDBHelper.getInstance(getApplicationContext()).insertStudents(student);
-                                Toast.makeText(getApplicationContext(), snapshot.getValue().toString(), Toast.LENGTH_SHORT).show();
-                                Log.v("!!!!podatak:", "  " + snapshot.getValue(String.class));
+                                ChatMessage cm=snapshot.getValue(ChatMessage.class);
+                               // Toast.makeText(getApplicationContext(), cm.getMessageText(), Toast.LENGTH_SHORT).show();
+                                Log.v("!!!!podatak:", "  " + cm.getMessageText());
                             }
 
-
+                        Log.v("!!!!podatak:", "  " + dataSnapshot.getChildren().toString());
                     }
 
                     @Override
