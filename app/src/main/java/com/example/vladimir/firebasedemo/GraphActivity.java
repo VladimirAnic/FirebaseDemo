@@ -1,5 +1,7 @@
 package com.example.vladimir.firebasedemo;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -55,12 +57,31 @@ public class GraphActivity extends AppCompatActivity {
 
         this.lvShowDB.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                Student mName = (Student) parent.getAdapter().getItem(position);
-                String deleteme = mName.getmFAndLName();
-                FirebasePullDBHelper.getInstance(getApplicationContext()).deleteStudent(spinnerItem,deleteme);
-                mStudentAdapter.deleteSa();
-                mStudentAdapter.setmStudents(loadStudents());
+            public boolean onItemLongClick(final AdapterView<?> parent, View view, final int position, long id) {
+
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                Student mName = (Student) parent.getAdapter().getItem(position);
+                                String deleteme = mName.getmFAndLName();
+                                FirebasePullDBHelper.getInstance(getApplicationContext()).deleteStudent(spinnerItem,deleteme);
+                                mStudentAdapter.deleteSa();
+                                mStudentAdapter.setmStudents(loadStudents());
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                //No button clicked
+                                break;
+                        }
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(GraphActivity.this);
+                builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
+
                 return true;
             }
         });

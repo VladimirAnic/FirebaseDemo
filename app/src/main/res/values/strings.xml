@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">FirebaseDemo</string>
     <string name="sign_in">Sign in</string>
+    <string name="Graph_name">Number of students per lecture</string>
     <string-array name="Lectures">
         <item>Lecture1</item>
         <item>Lecture2</item>

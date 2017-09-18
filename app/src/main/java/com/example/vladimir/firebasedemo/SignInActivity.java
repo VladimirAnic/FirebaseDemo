@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button btngetdata, btnSaveDataDB;
+    Button btngetdata, btnSaveDataDB, btnGraph;
 
     static ArrayList<Student> studenti=new ArrayList<>();
 
@@ -46,6 +47,18 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         this.btnSaveDataDB = (Button) this.findViewById(R.id.btSaveDB);
         //preparing spinner
         this.spLectures = (Spinner) this.findViewById(R.id.spLectures);
+
+        this.btnGraph = (Button) this.findViewById(R.id.btnGraph);
+
+
+
+        Toast.makeText(this,
+                "Welcome " + FirebaseAuth.getInstance()
+                        .getCurrentUser()
+                        .getDisplayName(),
+                Toast.LENGTH_LONG)
+                .show();
+
 
         ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter.createFromResource(this, R.array.Lectures, R.layout.spinner_item);
 
@@ -71,6 +84,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         btngetdata.setOnClickListener(this);
         btnSaveDataDB.setOnClickListener(this);
+        btnGraph.setOnClickListener(this);
 
         mDatabase = FirebaseDatabase.getInstance();
 
@@ -142,7 +156,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {//https://stackoverflow.com/questions/42709084/android-firebase-retrieve-all-data-in-single-path-and-store-it-in-sqlite
         switch (v.getId()) {
             case R.id.btngetdata:
-                myRef.removeValue();
+                startActivity(new Intent(this, GraphActivity.class));
                 break;
             case R.id.btSaveDB:
 
@@ -158,6 +172,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 studenti.clear();
                 mStudentAdapter.deleteS();
                 finish();
+                break;
+            case R.id.btnGraph:
+                startActivity(new Intent(this, VisualisationActivity.class));
                 break;
         }
     }

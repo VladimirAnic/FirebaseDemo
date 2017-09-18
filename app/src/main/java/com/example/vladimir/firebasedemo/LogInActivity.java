@@ -35,21 +35,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
         mAuth = FirebaseAuth.getInstance();
 
-        // active listen to user logged in or not.
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    //Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                } else {
-                    // User is signed out
-                    //Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
 
-            }
-        };
     }
 
     @Override
@@ -57,13 +43,20 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()) {
 
             case R.id.btnLoginmail:
-            startActivityForResult(
+
+                FirebaseUser user = mAuth.getCurrentUser();
+                if(user==null){
+                startActivityForResult(
                         AuthUI.getInstance()
                                 .createSignInIntentBuilder()
                                 .build(),
                         SIGN_IN_REQUEST_CODE
                 );
-                startActivity(new Intent(this, SignInActivity.class));
+
+                }
+                else
+                    startActivity(new Intent(getApplicationContext(), SignInActivity.class));
+
                 break;
 
             case R.id.btnLoginAnon:
@@ -72,6 +65,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 //Log.d(TAG, "OnComplete : " +task.isSuccessful());
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
                                 if (!task.isSuccessful()) {
                                    // Log.w(TAG, "Failed : ", task.getException());
@@ -81,7 +75,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
                             }
                         });
-                startActivity(new Intent(this, MainActivity.class));
+
                 break;
         }
 
@@ -89,8 +83,9 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     }
     @Override
     public void onStart() {
+
         super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
+
     }
     // release listener in onStop
     @Override
@@ -100,5 +95,14 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        FirebaseUser user = mAuth.getCurrentUser();
+        if(user!=null && !user.toString().equals("NULL"))
+            startActivity(new Intent(getApplicationContext(), SignInActivity.class));
+    }
+
 
 }

@@ -508,6 +508,71 @@ public class FirebasePullDBHelper extends SQLiteOpenHelper {
 
     }
 
+    public Float[] countStudentsPerLecture(){
+        Float[] students = new Float[8];
+        SQLiteDatabase writableDatabase = this.getWritableDatabase();
+        final String COUNT_STUDENTS_ON_LECTURE1 = "SELECT COUNT(*) FROM " + Schema.TABLE_STUDENTS + " WHERE "+ Schema.LECTURE1 + " = 1;";
+        final String COUNT_STUDENTS_ON_LECTURE2 = "SELECT COUNT(*) FROM " + Schema.TABLE_STUDENTS + " WHERE "+ Schema.LECTURE2 + " = 1;";
+        final String COUNT_STUDENTS_ON_LECTURE3 = "SELECT COUNT(*) FROM " + Schema.TABLE_STUDENTS + " WHERE "+ Schema.LECTURE3 + " = 1;";
+        final String COUNT_STUDENTS_ON_LECTURE4 = "SELECT COUNT(*) FROM " + Schema.TABLE_STUDENTS + " WHERE "+ Schema.LECTURE4 + " = 1;";
+        final String COUNT_STUDENTS_ON_LECTURE5 = "SELECT COUNT(*) FROM " + Schema.TABLE_STUDENTS + " WHERE "+ Schema.LECTURE5 + " = 1;";
+        final String COUNT_STUDENTS_ON_LECTURE6 = "SELECT COUNT(*) FROM " + Schema.TABLE_STUDENTS + " WHERE "+ Schema.LECTURE6 + " = 1;";
+        final String COUNT_STUDENTS_ON_LECTURE7 = "SELECT COUNT(*) FROM " + Schema.TABLE_STUDENTS + " WHERE "+ Schema.LECTURE7 + " = 1;";
+        final String COUNT_STUDENTS_ON_LECTURE8 = "SELECT COUNT(*) FROM " + Schema.TABLE_STUDENTS + " WHERE "+ Schema.LECTURE8 + " = 1;";
+
+        Cursor userCursor = writableDatabase.rawQuery(COUNT_STUDENTS_ON_LECTURE1, null);
+        if (userCursor.moveToFirst()) {
+            do {
+                students[0] =(float) userCursor.getInt(0);
+            } while (userCursor.moveToNext());
+        }
+        userCursor = writableDatabase.rawQuery(COUNT_STUDENTS_ON_LECTURE2, null);
+        if (userCursor.moveToFirst()) {
+            do {
+                students[1] =(float) userCursor.getInt(0);
+            } while (userCursor.moveToNext());
+        }
+        userCursor = writableDatabase.rawQuery(COUNT_STUDENTS_ON_LECTURE3, null);
+        if (userCursor.moveToFirst()) {
+            do {
+                students[2] =(float) userCursor.getInt(0);
+            } while (userCursor.moveToNext());
+        }
+        userCursor = writableDatabase.rawQuery(COUNT_STUDENTS_ON_LECTURE4, null);
+        if (userCursor.moveToFirst()) {
+            do {
+                students[3] =(float) userCursor.getInt(0);
+            } while (userCursor.moveToNext());
+        }
+        userCursor = writableDatabase.rawQuery(COUNT_STUDENTS_ON_LECTURE5, null);
+        if (userCursor.moveToFirst()) {
+            do {
+                students[4] =(float) userCursor.getInt(0);
+            } while (userCursor.moveToNext());
+        }
+        userCursor = writableDatabase.rawQuery(COUNT_STUDENTS_ON_LECTURE6, null);
+        if (userCursor.moveToFirst()) {
+            do {
+                students[5] =(float) userCursor.getInt(0);
+            } while (userCursor.moveToNext());
+        }
+        userCursor = writableDatabase.rawQuery(COUNT_STUDENTS_ON_LECTURE7, null);
+        if (userCursor.moveToFirst()) {
+            do {
+                students[6] =(float) userCursor.getInt(0);
+            } while (userCursor.moveToNext());
+        }
+        userCursor = writableDatabase.rawQuery(COUNT_STUDENTS_ON_LECTURE8, null);
+        if (userCursor.moveToFirst()) {
+            do {
+                students[7] =(float) userCursor.getInt(0);
+               // Log.v("!!!!count", (float) userCursor.getInt(0))
+            } while (userCursor.moveToNext());
+        }
+        userCursor.close();
+        return students;
+    }
+
     public static class Schema {
         private static final int SCHEMA_VERSION = 25;
         private static final String DATABASE_NAME = "students.db";
