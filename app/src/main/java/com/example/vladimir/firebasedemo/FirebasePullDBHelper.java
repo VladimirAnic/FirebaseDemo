@@ -51,26 +51,43 @@ public class FirebasePullDBHelper extends SQLiteOpenHelper {
         Integer id=checkStudents(student);
 
         SQLiteDatabase writableDatabase = this.getWritableDatabase();
+        Log.v("!!!!koji lecture:", lecture);
         if(id==null){
             ContentValues contentValues = new ContentValues();
             contentValues.put(Schema.FANDLNAME, student.getmFAndLName());
             contentValues.put(Schema.ATTENDENCE,1);
-            if(lecture.equals("Lecture1"))
+            if(lecture.equals("Lecture1")) {
                 contentValues.put(Schema.LECTURE1, 1);
-            else if(lecture.equals("Lecture2"))
+                Log.v("!!!!!lecture", contentValues.toString());
+            }
+            else if(lecture.equals("Lecture2")) {
                 contentValues.put(Schema.LECTURE2, 1);
-            else if(lecture.equals("Lecture3"))
+                Log.v("!!!!!lecture", contentValues.toString());
+            }
+            else if(lecture.equals("Lecture3")) {
                 contentValues.put(Schema.LECTURE3, 1);
-            else if(lecture.equals("Lecture4"))
+                Log.v("!!!!!lecture", contentValues.toString());
+            }
+            else if(lecture.equals("Lecture4")) {
                 contentValues.put(Schema.LECTURE4, 1);
-            else if(lecture.equals("Lecture5"))
+                Log.v("!!!!!lecture", contentValues.toString());
+            }
+            else if(lecture.equals("Lecture5")) {
                 contentValues.put(Schema.LECTURE5, 1);
-            else if(lecture.equals("Lecture6"))
+                Log.v("!!!!!lecture", contentValues.toString());
+            }
+            else if(lecture.equals("Lecture6")) {
                 contentValues.put(Schema.LECTURE6, 1);
-            else if(lecture.equals("Lecture7"))
+                Log.v("!!!!!lecture", contentValues.toString());
+            }
+            else if(lecture.equals("Lecture7")) {
                 contentValues.put(Schema.LECTURE7, 1);
-            else if(lecture.equals("Lecture8"))
+                Log.v("!!!!!lecture", contentValues.toString());
+            }
+            else if(lecture.equals("Lecture8")) {
                 contentValues.put(Schema.LECTURE8, 1);
+                Log.v("!!!!!lecture", contentValues.toString());
+            }
             writableDatabase.insert(Schema.TABLE_STUDENTS, Schema.FANDLNAME, contentValues);
         }
         else
@@ -79,8 +96,30 @@ public class FirebasePullDBHelper extends SQLiteOpenHelper {
              final String UPDATE_STUDENTS = "UPDATE " + Schema.TABLE_STUDENTS+ " SET " +  Schema.ATTENDENCE+ " = " + Schema.ATTENDENCE+ " + " + 1 +" WHERE " + Schema.ID + " = " + id + " ;";
             writableDatabase.execSQL(UPDATE_STUDENTS);
 
+            final String UPDATE_LECTURE1 = "UPDATE " + Schema.TABLE_STUDENTS+ " SET " + Schema.LECTURE1 + " = 1" + " WHERE "+ Schema.ID + " = " + id + " ;";
+            final String UPDATE_LECTURE2 = "UPDATE " + Schema.TABLE_STUDENTS+ " SET " + Schema.LECTURE2 + " = 1" + " WHERE "+ Schema.ID + " = " + id + " ;";
+            final String UPDATE_LECTURE3 = "UPDATE " + Schema.TABLE_STUDENTS+ " SET " + Schema.LECTURE3 + " = 1" + " WHERE "+ Schema.ID + " = " + id + " ;";
+            final String UPDATE_LECTURE4 = "UPDATE " + Schema.TABLE_STUDENTS+ " SET " + Schema.LECTURE4 + " = 1" + " WHERE "+ Schema.ID + " = " + id + " ;";
+            final String UPDATE_LECTURE5 = "UPDATE " + Schema.TABLE_STUDENTS+ " SET " + Schema.LECTURE5 + " = 1" + " WHERE "+ Schema.ID + " = " + id + " ;";
+            final String UPDATE_LECTURE6 = "UPDATE " + Schema.TABLE_STUDENTS+ " SET " + Schema.LECTURE6 + " = 1" + " WHERE "+ Schema.ID + " = " + id + " ;";
+            final String UPDATE_LECTURE7 = "UPDATE " + Schema.TABLE_STUDENTS+ " SET " + Schema.LECTURE7 + " = 1" + " WHERE "+ Schema.ID + " = " + id + " ;";
+            final String UPDATE_LECTURE8 = "UPDATE " + Schema.TABLE_STUDENTS+ " SET " + Schema.LECTURE8 + " = 1" + " WHERE "+ Schema.ID + " = " + id + " ;";
+
 
             final String GET_ATTENDENCE = "SELECT "+ Schema.ATTENDENCE + " FROM "+ Schema.TABLE_STUDENTS + " WHERE "+ Schema.ID +" = "+ id+ ";";
+
+
+            final String GET_STUDENTS_BY_LECTURE1 = "SELECT "+ Schema.LECTURE1 + " FROM "+ Schema.TABLE_STUDENTS + " WHERE "+ Schema.ID + " = " + id + " ;";
+            final String GET_STUDENTS_BY_LECTURE2 = "SELECT "+ Schema.LECTURE2 + " FROM "+ Schema.TABLE_STUDENTS + " WHERE "+ Schema.ID + " = " + id + " ;";
+            final String GET_STUDENTS_BY_LECTURE3 = "SELECT "+ Schema.LECTURE3 + " FROM "+ Schema.TABLE_STUDENTS + " WHERE "+ Schema.ID + " = " + id + " ;";
+            final String GET_STUDENTS_BY_LECTURE4 = "SELECT "+ Schema.LECTURE4 + " FROM "+ Schema.TABLE_STUDENTS + " WHERE "+ Schema.ID + " = " + id + " ;";
+            final String GET_STUDENTS_BY_LECTURE5 = "SELECT "+ Schema.LECTURE5 + " FROM "+ Schema.TABLE_STUDENTS + " WHERE "+ Schema.ID + " = " + id + " ;";
+            final String GET_STUDENTS_BY_LECTURE6 = "SELECT "+ Schema.LECTURE6 + " FROM "+ Schema.TABLE_STUDENTS + " WHERE "+ Schema.ID + " = " + id + " ;";
+            final String GET_STUDENTS_BY_LECTURE7 = "SELECT "+ Schema.LECTURE7 + " FROM "+ Schema.TABLE_STUDENTS + " WHERE "+ Schema.ID + " = " + id + " ;";
+            final String GET_STUDENTS_BY_LECTURE8 = "SELECT "+ Schema.LECTURE8 + " FROM "+ Schema.TABLE_STUDENTS + " WHERE "+ Schema.ID + " = " + id + " ;";
+
+
+
             Cursor userCursor = writableDatabase.rawQuery(GET_ATTENDENCE, null);
             if(userCursor.moveToFirst())
             {
@@ -89,8 +128,171 @@ public class FirebasePullDBHelper extends SQLiteOpenHelper {
                     Log.v("!!!!attendance", String.valueOf(userCursor.getInt(0)));
                 }while(userCursor.moveToNext());
             }
+            if(lecture.equals("Lecture1"))
+            {
+                writableDatabase.execSQL(UPDATE_LECTURE1);
+
+            }
+            else if(lecture.equals("Lecture2"))
+            {
+               writableDatabase.execSQL(UPDATE_LECTURE2);
+                Log.v("!!!lecture update taj i taj", lecture);
+
+            }
+            else if(lecture.equals("Lecture3"))
+            {
+                writableDatabase.execSQL(UPDATE_LECTURE3);
+                Log.v("!!!lecture update taj i taj", lecture);
+
+
+            }
+            else if(lecture.equals("Lecture4"))
+            {
+                writableDatabase.execSQL(UPDATE_LECTURE4);
+                Log.v("!!!lecture update taj i taj", lecture);
+
+
+            }
+            else if(lecture.equals("Lecture5"))
+            {
+               writableDatabase.execSQL(UPDATE_LECTURE5);
+                Log.v("!!!lecture update taj i taj", lecture);
+
+
+            }
+            else if(lecture.equals("Lecture6"))
+            {
+                writableDatabase.execSQL(UPDATE_LECTURE6);
+                Log.v("!!!lecture update taj i taj", lecture);
+
+
+            }
+            else if(lecture.equals("Lecture7"))
+            {
+                writableDatabase.execSQL(UPDATE_LECTURE7);
+                Log.v("!!!lecture update taj i taj", lecture);
+
+
+            }
+            else if(lecture.equals("Lecture8"))
+            {
+                writableDatabase.execSQL(UPDATE_LECTURE8);
+                Log.v("!!!lecture update taj i taj", lecture);
+
+
+            }
+
+
+
+
+            if(lecture.equals("Lecture1"))
+            {
+                userCursor = writableDatabase.rawQuery(GET_STUDENTS_BY_LECTURE1, null);
+                if(userCursor.moveToFirst())
+                {
+                    do{
+                        Log.v("!!!!id", String.valueOf(id));
+                        Log.v("!!!!lecture get", String.valueOf(userCursor.getInt(0)));
+                    }while(userCursor.moveToNext());
+                }
+
+            }
+            else if(lecture.equals("Lecture2"))
+            {
+                userCursor = writableDatabase.rawQuery(GET_STUDENTS_BY_LECTURE2, null);
+                if(userCursor.moveToFirst())
+                {
+                    do{
+                        Log.v("!!!!id", String.valueOf(id));
+                        Log.v("!!!!lecture get", String.valueOf(userCursor.getInt(0)));
+                    }while(userCursor.moveToNext());
+                }
+
+            }
+            else if(lecture.equals("Lecture3"))
+            {
+                userCursor = writableDatabase.rawQuery(GET_STUDENTS_BY_LECTURE3, null);
+                if(userCursor.moveToFirst())
+                {
+                    do{
+                        Log.v("!!!!id", String.valueOf(id));
+                        Log.v("!!!!lecture get", String.valueOf(userCursor.getInt(0)));
+                    }while(userCursor.moveToNext());
+                }
+
+
+            }
+            else if(lecture.equals("Lecture4"))
+            {
+                userCursor = writableDatabase.rawQuery(GET_STUDENTS_BY_LECTURE4, null);
+                if(userCursor.moveToFirst())
+                {
+                    do{
+                        Log.v("!!!!id", String.valueOf(id));
+                        Log.v("!!!!lecture get", String.valueOf(userCursor.getInt(0)));
+                    }while(userCursor.moveToNext());
+                }
+
+
+            }
+            else if(lecture.equals("Lecture5"))
+            {
+                userCursor = writableDatabase.rawQuery(GET_STUDENTS_BY_LECTURE5, null);
+                if(userCursor.moveToFirst())
+                {
+                    do{
+                        Log.v("!!!!id", String.valueOf(id));
+                        Log.v("!!!!lecture get", String.valueOf(userCursor.getInt(0)));
+                    }while(userCursor.moveToNext());
+                }
+
+
+            }
+            else if(lecture.equals("Lecture6"))
+            {
+                userCursor = writableDatabase.rawQuery(GET_STUDENTS_BY_LECTURE6, null);
+                if(userCursor.moveToFirst())
+                {
+                    do{
+                        Log.v("!!!!id", String.valueOf(id));
+                        Log.v("!!!!lecture get", String.valueOf(userCursor.getInt(0)));
+                    }while(userCursor.moveToNext());
+                }
+
+
+            }
+            else if(lecture.equals("Lecture7"))
+            {
+                userCursor = writableDatabase.rawQuery(GET_STUDENTS_BY_LECTURE7, null);
+                if(userCursor.moveToFirst())
+                {
+                    do{
+                        Log.v("!!!!id", String.valueOf(id));
+                        Log.v("!!!!lecture get", String.valueOf(userCursor.getInt(0)));
+                    }while(userCursor.moveToNext());
+                }
+
+
+            }
+            else if(lecture.equals("Lecture8"))
+            {
+                userCursor = writableDatabase.rawQuery(GET_STUDENTS_BY_LECTURE8, null);
+                if(userCursor.moveToFirst())
+                {
+                    do{
+                        Log.v("!!!!id", String.valueOf(id));
+                        Log.v("!!!!lecture get", String.valueOf(userCursor.getInt(0)));
+                    }while(userCursor.moveToNext());
+                }
+
+
+            }
               userCursor.close();
         }
+
+
+
+
         writableDatabase.close();
     }
     public Integer checkStudents(Student studenti){
@@ -124,8 +326,120 @@ public class FirebasePullDBHelper extends SQLiteOpenHelper {
         return students;
     }
 
+    public ArrayList<Student> getStudentsByAttendance(String spGetString) {
+        SQLiteDatabase writeableDatabase = this.getWritableDatabase();
+        ArrayList<Student> students = new ArrayList<>();
+        final String GET_STUDENTS_BY_LECTURE1 = "SELECT "+ Schema.FANDLNAME + " FROM "+ Schema.TABLE_STUDENTS + " WHERE "+ Schema.LECTURE1 +" =  1;";
+        final String GET_STUDENTS_BY_LECTURE2 = "SELECT "+ Schema.FANDLNAME + " FROM "+ Schema.TABLE_STUDENTS + " WHERE "+ Schema.LECTURE2 +" =  1;";
+        final String GET_STUDENTS_BY_LECTURE3 = "SELECT "+ Schema.FANDLNAME + " FROM "+ Schema.TABLE_STUDENTS + " WHERE "+ Schema.LECTURE3 +" =  1;";
+        final String GET_STUDENTS_BY_LECTURE4 = "SELECT "+ Schema.FANDLNAME + " FROM "+ Schema.TABLE_STUDENTS + " WHERE "+ Schema.LECTURE4 +" =  1;";
+        final String GET_STUDENTS_BY_LECTURE5 = "SELECT "+ Schema.FANDLNAME + " FROM "+ Schema.TABLE_STUDENTS + " WHERE "+ Schema.LECTURE5 +" =  1;";
+        final String GET_STUDENTS_BY_LECTURE6 = "SELECT "+ Schema.FANDLNAME + " FROM "+ Schema.TABLE_STUDENTS + " WHERE "+ Schema.LECTURE6 +" =  1;";
+        final String GET_STUDENTS_BY_LECTURE7 = "SELECT "+ Schema.FANDLNAME + " FROM "+ Schema.TABLE_STUDENTS + " WHERE "+ Schema.LECTURE7 +" =  1;";
+        final String GET_STUDENTS_BY_LECTURE8 = "SELECT "+ Schema.FANDLNAME + " FROM "+ Schema.TABLE_STUDENTS + " WHERE "+ Schema.LECTURE8 +" =  1;";
+        if(spGetString.equals("Lecture1"))
+        {
+            Cursor userCursor = writeableDatabase.rawQuery(GET_STUDENTS_BY_LECTURE1, null);
+            if (userCursor.moveToFirst()) {
+                do {
+                    String FAndLName = userCursor.getString(0);
+                    students.add(new Student(FAndLName));
+                } while (userCursor.moveToNext());
+            }
+            userCursor.close();
+
+        }
+        else if(spGetString.equals("Lecture2"))
+        {
+            Cursor userCursor = writeableDatabase.rawQuery(GET_STUDENTS_BY_LECTURE2, null);
+
+            if (userCursor.moveToFirst()) {
+                do {
+                    String FAndLName = userCursor.getString(0);
+                    students.add(new Student(FAndLName));
+                } while (userCursor.moveToNext());
+            }
+            userCursor.close();
+
+        }
+        else if(spGetString.equals("Lecture3"))
+        {
+            Cursor userCursor = writeableDatabase.rawQuery(GET_STUDENTS_BY_LECTURE3, null);
+            if (userCursor.moveToFirst()) {
+                do {
+                    String FAndLName = userCursor.getString(0);
+                    students.add(new Student(FAndLName));
+                } while (userCursor.moveToNext());
+            }
+            userCursor.close();
+
+        }
+        else if(spGetString.equals("Lecture4"))
+        {
+            Cursor userCursor = writeableDatabase.rawQuery(GET_STUDENTS_BY_LECTURE4, null);
+            if (userCursor.moveToFirst()) {
+                do {
+                    String FAndLName = userCursor.getString(0);
+                    students.add(new Student(FAndLName));
+                } while (userCursor.moveToNext());
+            }
+            userCursor.close();
+
+        }
+        else if(spGetString.equals("Lecture5"))
+        {
+            Cursor userCursor = writeableDatabase.rawQuery(GET_STUDENTS_BY_LECTURE5, null);
+            if (userCursor.moveToFirst()) {
+                do {
+                    String FAndLName = userCursor.getString(0);
+                    students.add(new Student(FAndLName));
+                } while (userCursor.moveToNext());
+            }
+            userCursor.close();
+
+        }
+        else if(spGetString.equals("Lecture6"))
+        {
+            Cursor userCursor = writeableDatabase.rawQuery(GET_STUDENTS_BY_LECTURE6, null);
+            if (userCursor.moveToFirst()) {
+                do {
+                    String FAndLName = userCursor.getString(0);
+                    students.add(new Student(FAndLName));
+                } while (userCursor.moveToNext());
+            }
+            userCursor.close();
+
+        }
+        else if(spGetString.equals("Lecture7"))
+        {
+            Cursor userCursor = writeableDatabase.rawQuery(GET_STUDENTS_BY_LECTURE7, null);
+            if (userCursor.moveToFirst()) {
+                do {
+                    String FAndLName = userCursor.getString(0);
+                    students.add(new Student(FAndLName));
+                } while (userCursor.moveToNext());
+            }
+            userCursor.close();
+
+        }
+        else if(spGetString.equals("Lecture8"))
+        {
+            Cursor userCursor = writeableDatabase.rawQuery(GET_STUDENTS_BY_LECTURE8, null);
+            if (userCursor.moveToFirst()) {
+                do {
+                    String FAndLName = userCursor.getString(0);
+                    students.add(new Student(FAndLName));
+                } while (userCursor.moveToNext());
+            }
+            userCursor.close();
+
+        }
+        writeableDatabase.close();
+        return students;
+    }
+
     public static class Schema {
-        private static final int SCHEMA_VERSION = 23;
+        private static final int SCHEMA_VERSION = 25;
         private static final String DATABASE_NAME = "students.db";
         static final String TABLE_STUDENTS = "students";
         static final String FANDLNAME = "username";
