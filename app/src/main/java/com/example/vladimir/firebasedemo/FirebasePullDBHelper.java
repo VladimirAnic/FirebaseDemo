@@ -438,6 +438,76 @@ public class FirebasePullDBHelper extends SQLiteOpenHelper {
         return students;
     }
 
+    public void deleteStudent(String Lecture, String Name)
+    {
+        SQLiteDatabase writableDatabase = this.getWritableDatabase();
+        final String UPDATE_DELETE_LECTURE1 = "UPDATE " + Schema.TABLE_STUDENTS+ " SET " + Schema.LECTURE1 + " = 0" + " WHERE "+ Schema.FANDLNAME + " = \"" + Name + "\" ;";
+        final String UPDATE_DELETE_LECTURE2 = "UPDATE " + Schema.TABLE_STUDENTS+ " SET " + Schema.LECTURE2 + " = 0" + " WHERE "+ Schema.FANDLNAME + " = \"" + Name + "\" ;";
+        final String UPDATE_DELETE_LECTURE3 = "UPDATE " + Schema.TABLE_STUDENTS+ " SET " + Schema.LECTURE3 + " = 0" + " WHERE "+ Schema.FANDLNAME + " = \"" + Name + "\" ;";
+        final String UPDATE_DELETE_LECTURE4 = "UPDATE " + Schema.TABLE_STUDENTS+ " SET " + Schema.LECTURE4 + " = 0" + " WHERE "+ Schema.FANDLNAME + " = \"" + Name + "\" ;";
+        final String UPDATE_DELETE_LECTURE5 = "UPDATE " + Schema.TABLE_STUDENTS+ " SET " + Schema.LECTURE5 + " = 0" + " WHERE "+ Schema.FANDLNAME + " = \"" + Name + "\" ;";
+        final String UPDATE_DELETE_LECTURE6 = "UPDATE " + Schema.TABLE_STUDENTS+ " SET " + Schema.LECTURE6 + " = 0" + " WHERE "+ Schema.FANDLNAME + " = \"" + Name + "\" ;";
+        final String UPDATE_DELETE_LECTURE7 = "UPDATE " + Schema.TABLE_STUDENTS+ " SET " + Schema.LECTURE7 + " = 0" + " WHERE "+ Schema.FANDLNAME + " = \"" + Name + "\" ;";
+        final String UPDATE_DELETE_LECTURE8 = "UPDATE " + Schema.TABLE_STUDENTS+ " SET " + Schema.LECTURE8 + " = 0" + " WHERE "+ Schema.FANDLNAME + " = \"" + Name + "\" ;";
+        final String UPDATE_DELETE_STUDENTS = "UPDATE " + Schema.TABLE_STUDENTS+ " SET " +  Schema.ATTENDENCE+ " = " + Schema.ATTENDENCE+ " - 1 "  +" WHERE " + Schema.FANDLNAME + " = \" " + Name + "\" ;";
+
+        writableDatabase.execSQL(UPDATE_DELETE_STUDENTS);
+
+        if(Lecture.equals("Lecture1"))
+        {
+            writableDatabase.execSQL(UPDATE_DELETE_LECTURE1);
+
+        }
+        else if(Lecture.equals("Lecture2"))
+        {
+            writableDatabase.execSQL(UPDATE_DELETE_LECTURE2);
+
+
+        }
+        else if(Lecture.equals("Lecture3"))
+        {
+            writableDatabase.execSQL(UPDATE_DELETE_LECTURE3);
+
+
+
+        }
+        else if(Lecture.equals("Lecture4"))
+        {
+            writableDatabase.execSQL(UPDATE_DELETE_LECTURE4);
+
+
+
+        }
+        else if(Lecture.equals("Lecture5"))
+        {
+            writableDatabase.execSQL(UPDATE_DELETE_LECTURE5);
+
+
+
+        }
+        else if(Lecture.equals("Lecture6"))
+        {
+            writableDatabase.execSQL(UPDATE_DELETE_LECTURE6);
+
+
+
+        }
+        else if(Lecture.equals("Lecture7"))
+        {
+            writableDatabase.execSQL(UPDATE_DELETE_LECTURE7);
+
+
+
+        }
+        else if(Lecture.equals("Lecture8"))
+        {
+            writableDatabase.execSQL(UPDATE_DELETE_LECTURE8);
+
+
+        }
+
+    }
+
     public static class Schema {
         private static final int SCHEMA_VERSION = 25;
         private static final String DATABASE_NAME = "students.db";

@@ -1,7 +1,7 @@
 package com.example.vladimir.firebasedemo;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -29,7 +29,8 @@ public class GraphActivity extends AppCompatActivity {
         //preparing spinner
         this.spLectures = (Spinner) this.findViewById(R.id.spLectures);
 
-        ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter.createFromResource(this, R.array.Lectures, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter.createFromResource(this, R.array.Lectures, R.layout.spinner_item);
+
 
 
         staticAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -52,6 +53,17 @@ public class GraphActivity extends AppCompatActivity {
 
 
 
+        this.lvShowDB.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                Student mName = (Student) parent.getAdapter().getItem(position);
+                String deleteme = mName.getmFAndLName();
+                FirebasePullDBHelper.getInstance(getApplicationContext()).deleteStudent(spinnerItem,deleteme);
+                mStudentAdapter.deleteSa();
+                mStudentAdapter.setmStudents(loadStudents());
+                return true;
+            }
+        });
 
     }
 

@@ -47,7 +47,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         //preparing spinner
         this.spLectures = (Spinner) this.findViewById(R.id.spLectures);
 
-        ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter.createFromResource(this, R.array.Lectures, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter.createFromResource(this, R.array.Lectures, R.layout.spinner_item);
 
 
         staticAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -73,7 +73,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         btnSaveDataDB.setOnClickListener(this);
 
         mDatabase = FirebaseDatabase.getInstance();
-
 
 
 

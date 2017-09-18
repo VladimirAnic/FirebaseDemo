@@ -72,6 +72,11 @@ public class StudentAdapter extends BaseAdapter {
         notifyDataSetChanged();
 
     }
+    public void deleteSa() {
+        this.mStudents.clear();
+        notifyDataSetChanged();
+
+    }
 
     public void setmStudents(ArrayList<Student> mStudents) {
         this.mStudents = mStudents;
