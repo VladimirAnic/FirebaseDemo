@@ -64,11 +64,9 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                //Log.d(TAG, "OnComplete : " +task.isSuccessful());
                                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
                                 if (!task.isSuccessful()) {
-                                   // Log.w(TAG, "Failed : ", task.getException());
                                     Toast.makeText(LogInActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                                 }
 

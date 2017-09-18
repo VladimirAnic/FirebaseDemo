@@ -1,7 +1,12 @@
 <resources>
-    <string name="app_name">FirebaseDemo</string>
+    <string name="app_name">Ferit potpisi</string>
     <string name="sign_in">Sign in</string>
     <string name="Graph_name">Number of students per lecture</string>
+    <string name="sign_in_profesor">Profesor Sign In</string>
+    <string name="sign_in_student">Student Sign In</string>
+    <string name="showStatByLecture">Show lecture data</string>
+    <string name="saveDataToDB">Save data to database</string>
+    <string name="showStatGraph">Show graph of attendance</string>
     <string-array name="Lectures">
         <item>Lecture1</item>
         <item>Lecture2</item>

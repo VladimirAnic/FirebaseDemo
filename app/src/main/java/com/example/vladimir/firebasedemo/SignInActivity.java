@@ -4,13 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -51,15 +52,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         this.btnGraph = (Button) this.findViewById(R.id.btnGraph);
 
 
-
-        Toast.makeText(this,
-                "Welcome " + FirebaseAuth.getInstance()
-                        .getCurrentUser()
-                        .getDisplayName(),
-                Toast.LENGTH_LONG)
-                .show();
-
-
         ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter.createFromResource(this, R.array.Lectures, R.layout.spinner_item);
 
 
@@ -69,7 +61,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 spinnerItem = spLectures.getSelectedItem().toString();
-                Toast.makeText(getApplicationContext(), spinnerItem, Toast.LENGTH_SHORT).show();            }
+            }
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
@@ -109,12 +101,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                         if(studenti.get(i).getmFAndLName().equals(student.getmFAndLName()))
                         {
                             flag=true;
-                         //   Log.v("!!!!!jednaki su", studenti.get(i).getmFAndLName());
                             break;
                         }
 
                     }
-                  //  Log.v("!!!!studenti1:", "  " + studenti);
                     if(flag)
                     {
                         flag = false;
@@ -124,22 +114,14 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                         studenti.add(i,student);
 
                     }
-                  //  Log.v("!!!!studenti2:", "  " + studenti);
-                    // Toast.makeText(getApplicationContext(), student.toString(), Toast.LENGTH_SHORT).show();
-                    //Log.v("!!!!podatak u bazi:", "  " +student.toString());
 
-                    // Toast.makeText(getApplicationContext(), cm.getMessageText(), Toast.LENGTH_SHORT).show();
-                   // Log.v("!!!!podatak:", "  " + cm.getMessageText());
-                    //mStudentAdapter.notifyDataSetChanged();
                 }
-               // Log.v("!!!!studenti4:", "  " + studenti);
                 ArrayList<Student> temp=studenti;
 
                 mStudentAdapter.setmStudents(temp);
                 i=0;
                 Log.v("!!!!studenti3:", "  " + temp);
 
-                //  Log.v("!!!!podatak:", "  " + dataSnapshot.getChildren().toString());
             }
 
             @Override
@@ -163,10 +145,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 FirebasePullDBHelper baza = new FirebasePullDBHelper(getApplicationContext());
                 for(i=0; i <studenti.size();i++)
                 {
-                  // if((baza.checkStudents(studenti.get(i))) == null) {
                         baza.insertStudents(studenti.get(i), spinnerItem);
-                       // Log.v("!!!!podatak123:", "  " + studenti.get(i));
-                    //}
                 }
                 startActivity(new Intent(this, GraphActivity.class));
                 studenti.clear();
@@ -179,5 +158,18 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.menu_sign_out) {
+            FirebaseAuth.getInstance().signOut();
+            finish();
+        }
+        return true;
+    }
 }

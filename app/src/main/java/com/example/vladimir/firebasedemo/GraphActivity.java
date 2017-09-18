@@ -9,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -41,10 +40,7 @@ public class GraphActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 spinnerItem = spLectures.getSelectedItem().toString();
-                Toast.makeText(getApplicationContext(), spinnerItem, Toast.LENGTH_SHORT).show();
-
                 mStudentAdapter = new StudentAdapter(loadStudents());
-                // mStudentAdapter.deleteS();
                 lvShowDB.setAdapter(mStudentAdapter);
             }
 
@@ -89,8 +85,6 @@ public class GraphActivity extends AppCompatActivity {
     }
 
     private ArrayList<Student> loadStudents() {
-
-       // return FirebasePullDBHelper.getInstance(this).getAllStudents();
         return FirebasePullDBHelper.getInstance(this).getStudentsByAttendance(spinnerItem);
     }
 }

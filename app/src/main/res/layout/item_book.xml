@@ -3,11 +3,14 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
 
+    android:padding="@dimen/paddingListView"
     <TextView
         android:id="@+id/tvFandLName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/textSize"/>
+        android:textSize="@dimen/textSize"
+        android:paddingLeft="@dimen/paddingListViewSides"
+        android:paddingRight="@dimen/paddingListViewSides"/>
 
 
 </RelativeLayout>

@@ -108,7 +108,7 @@ public class FirebasePullDBHelper extends SQLiteOpenHelper {
 
             final String GET_ATTENDENCE = "SELECT "+ Schema.ATTENDENCE + " FROM "+ Schema.TABLE_STUDENTS + " WHERE "+ Schema.ID +" = "+ id+ ";";
 
-
+/*
             final String GET_STUDENTS_BY_LECTURE1 = "SELECT "+ Schema.LECTURE1 + " FROM "+ Schema.TABLE_STUDENTS + " WHERE "+ Schema.ID + " = " + id + " ;";
             final String GET_STUDENTS_BY_LECTURE2 = "SELECT "+ Schema.LECTURE2 + " FROM "+ Schema.TABLE_STUDENTS + " WHERE "+ Schema.ID + " = " + id + " ;";
             final String GET_STUDENTS_BY_LECTURE3 = "SELECT "+ Schema.LECTURE3 + " FROM "+ Schema.TABLE_STUDENTS + " WHERE "+ Schema.ID + " = " + id + " ;";
@@ -118,9 +118,9 @@ public class FirebasePullDBHelper extends SQLiteOpenHelper {
             final String GET_STUDENTS_BY_LECTURE7 = "SELECT "+ Schema.LECTURE7 + " FROM "+ Schema.TABLE_STUDENTS + " WHERE "+ Schema.ID + " = " + id + " ;";
             final String GET_STUDENTS_BY_LECTURE8 = "SELECT "+ Schema.LECTURE8 + " FROM "+ Schema.TABLE_STUDENTS + " WHERE "+ Schema.ID + " = " + id + " ;";
 
+*/
 
-
-            Cursor userCursor = writableDatabase.rawQuery(GET_ATTENDENCE, null);
+           Cursor userCursor = writableDatabase.rawQuery(GET_ATTENDENCE, null);
             if(userCursor.moveToFirst())
             {
                 do{
@@ -183,7 +183,7 @@ public class FirebasePullDBHelper extends SQLiteOpenHelper {
             }
 
 
-
+/*
 
             if(lecture.equals("Lecture1"))
             {
@@ -286,7 +286,7 @@ public class FirebasePullDBHelper extends SQLiteOpenHelper {
                 }
 
 
-            }
+            }*/
               userCursor.close();
         }
 
