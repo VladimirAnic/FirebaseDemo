@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">FirebaseDemo</string>
     <string name="sign_in">Sign in</string>
+    <string-array name="Lectures">
+        <item>Lecture1</item>
+        <item>Lecture2</item>
+        <item>Lecture3</item>
+        <item>Lecture4</item>
+        <item>Lecture5</item>
+        <item>Lecture6</item>
+        <item>Lecture7</item>
+        <item>Lecture8</item>
+    </string-array>
 </resources>
