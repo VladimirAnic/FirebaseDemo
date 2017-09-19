@@ -15,12 +15,15 @@ import java.util.ArrayList;
 public class StudentAdapter extends BaseAdapter {
 
     private ArrayList<Student> mStudents;
-    public StudentAdapter(ArrayList<Student> students) { mStudents = students; }
 
-    public StudentAdapter(){
-        ArrayList<Student> temp=new ArrayList<>();
+    public StudentAdapter(ArrayList<Student> students) {
+        mStudents = students;
+    }
+
+    public StudentAdapter() {
+        ArrayList<Student> temp = new ArrayList<>();
         temp.add(0, new Student(""));
-        mStudents=temp;
+        mStudents = temp;
     }
 
     @Override
@@ -57,8 +60,6 @@ public class StudentAdapter extends BaseAdapter {
     }
 
 
-
-
     public static class ViewHolder {
         public TextView tvFandLName;
 
@@ -66,12 +67,14 @@ public class StudentAdapter extends BaseAdapter {
             tvFandLName = (TextView) taskView.findViewById(R.id.tvFandLName);
         }
     }
+
     public void deleteS() {
 
         this.mStudents.clear();
         notifyDataSetChanged();
 
     }
+
     public void deleteSa() {
         this.mStudents.clear();
         notifyDataSetChanged();

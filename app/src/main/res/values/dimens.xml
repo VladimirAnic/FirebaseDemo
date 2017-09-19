@@ -5,4 +5,5 @@
     <dimen name="textSize">25sp</dimen>
     <dimen name="paddingListView">5dp</dimen>
     <dimen name="paddingListViewSides">10dp</dimen>
+    <dimen name="BigMargin">50dp</dimen>
 </resources>

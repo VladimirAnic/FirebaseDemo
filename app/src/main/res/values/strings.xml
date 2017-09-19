@@ -7,6 +7,9 @@
     <string name="showStatByLecture">Show lecture data</string>
     <string name="saveDataToDB">Save data to database</string>
     <string name="showStatGraph">Show graph of attendance</string>
+    <string name="bAddStudent">Add student</string>
+    <string name="etHint">Add new student</string>
+    <string name="etInput">Input</string>
     <string-array name="Lectures">
         <item>Lecture1</item>
         <item>Lecture2</item>

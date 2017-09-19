@@ -1,7 +1,11 @@
 package com.example.vladimir.firebasedemo;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -19,14 +23,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.opencsv.CSVWriter;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button btngetdata, btnSaveDataDB, btnGraph;
 
-    static ArrayList<Student> studenti=new ArrayList<>();
+    static ArrayList<Student> studenti = new ArrayList<>();
 
     private FirebaseDatabase mDatabase;
 
@@ -81,8 +88,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         mDatabase = FirebaseDatabase.getInstance();
 
 
-
-
         myRef = mDatabase.getReferenceFromUrl(("https://fir-demo-a022a.firebaseio.com/"));
         myRef.removeValue();
         myRef.addValueEventListener(new ValueEventListener() {
@@ -94,34 +99,27 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     // do SQLite insertion for each data here
                     ChatMessage cm = snapshot.getValue(ChatMessage.class);
                     Student student = new Student(cm.getMessageText());
-                    boolean flag=false;
+                    boolean flag = false;
 
-                    for(i=0; i<studenti.size();i++)
-                    {
-                        if(studenti.get(i).getmFAndLName().equals(student.getmFAndLName()))
-                        {
-                            flag=true;
+                    for (i = 0; i < studenti.size(); i++) {
+                        if (studenti.get(i).getmFAndLName().equals(student.getmFAndLName())) {
+                            flag = true;
                             break;
                         }
 
                     }
-                    if(flag)
-                    {
+                    if (flag) {
                         flag = false;
-                    }
-                    else
-                    {
-                        studenti.add(i,student);
+                    } else {
+                        studenti.add(i, student);
 
                     }
 
                 }
-                ArrayList<Student> temp=studenti;
+                ArrayList<Student> temp = studenti;
 
                 mStudentAdapter.setmStudents(temp);
-                i=0;
-                Log.v("!!!!studenti3:", "  " + temp);
-
+                i = 0;
             }
 
             @Override
@@ -133,7 +131,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
-
     @Override
     public void onClick(View v) {//https://stackoverflow.com/questions/42709084/android-firebase-retrieve-all-data-in-single-path-and-store-it-in-sqlite
         switch (v.getId()) {
@@ -143,9 +140,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.btSaveDB:
 
                 FirebasePullDBHelper baza = new FirebasePullDBHelper(getApplicationContext());
-                for(i=0; i <studenti.size();i++)
-                {
-                        baza.insertStudents(studenti.get(i), spinnerItem);
+                for (i = 0; i < studenti.size(); i++) {
+                    baza.insertStudents(studenti.get(i), spinnerItem);
                 }
                 startActivity(new Intent(this, GraphActivity.class));
                 studenti.clear();
@@ -166,10 +162,46 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.menu_sign_out) {
+        if (item.getItemId() == R.id.menu_sign_out) {
             FirebaseAuth.getInstance().signOut();
             finish();
+        } else if (item.getItemId() == R.id.menu_export) {
+            exportDB();
         }
         return true;
+    }
+
+    public void exportDB() {
+
+        FirebasePullDBHelper dbhelper = new FirebasePullDBHelper(getApplicationContext());
+        File exportDir = new File(Environment.getExternalStorageDirectory(), "");
+        if (!exportDir.exists()) {
+            exportDir.mkdirs();
+        }
+
+        File file = new File(exportDir, "potpisi.csv");
+        try {
+            file.createNewFile();
+            CSVWriter csvWrite = new CSVWriter(new FileWriter(file));
+            SQLiteDatabase db = dbhelper.getReadableDatabase();
+            Cursor curCSV = db.rawQuery("SELECT * FROM students", null);
+            csvWrite.writeNext(curCSV.getColumnNames());
+            while (curCSV.moveToNext()) {
+                //Which column you want to exprort
+                String arrStr[] = {curCSV.getString(0), curCSV.getString(1), curCSV.getString(2), curCSV.getString(3), curCSV.getString(4), curCSV.getString(5), curCSV.getString(6), curCSV.getString(7), curCSV.getString(8), curCSV.getString(9), curCSV.getString(10)};
+                csvWrite.writeNext(arrStr);
+            }
+            csvWrite.close();
+            curCSV.close();
+        } catch (Exception sqlEx) {
+            Log.e("!!!!!!!!!!Export Error", sqlEx.getMessage(), sqlEx);
+        }
+        Uri u1 = null;
+        u1 = Uri.fromFile(file);
+        Intent sendIntent = new Intent(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Export database");
+        sendIntent.putExtra(Intent.EXTRA_STREAM, u1);
+        sendIntent.setType("text/html");
+        startActivity(sendIntent);
     }
 }

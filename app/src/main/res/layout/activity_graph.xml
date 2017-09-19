@@ -1,26 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/sign_in_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical">
+
     <Spinner
+        android:id="@+id/spLectures"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/spLectures"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:entries="@array/Lectures"
-        android:spinnerMode="dropdown"
-        />
+        android:spinnerMode="dropdown" />
+
     <RelativeLayout
+        android:id="@+id/rlListView"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/spLectures">
+
         <ListView
             android:id="@+id/lvShowDB"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-        </ListView>
+            android:layout_height="wrap_content" />
     </RelativeLayout>
-</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/etNewStudent"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:hint="@string/etHint" />
+
+        <Button
+            android:id="@+id/btnAddNewStudent"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/bAddStudent" />
+    </LinearLayout>
+</RelativeLayout>

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,17 +25,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         FloatingActionButton fab =
-                (FloatingActionButton)findViewById(R.id.fab);
+                (FloatingActionButton) findViewById(R.id.fab);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText input = (EditText)findViewById(R.id.input);
+                EditText input = (EditText) findViewById(R.id.input);
 
                 // Read the input field and push a new instance
                 // of ChatMessage to the Firebase database
-                if(input.getText()!=null)
-                {
+                if (input.getText() != null) {
                     FirebaseDatabase.getInstance()
                             .getReference()
                             .push()
@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
                     // Clear the input
 
+                    Toast.makeText(getApplicationContext(), "Successfully signed in!", Toast.LENGTH_SHORT).show();
                     input.setText("");
                     FirebaseAuth.getInstance().signOut();
                     finish();
@@ -53,11 +54,10 @@ public class MainActivity extends AppCompatActivity {
                 }
 
 
-
-
             }
         });
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {

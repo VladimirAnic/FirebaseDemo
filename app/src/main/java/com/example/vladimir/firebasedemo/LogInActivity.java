@@ -22,6 +22,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     private FirebaseAuth mAuth;
     FirebaseAuth.AuthStateListener mAuthListener;
     private static final int SIGN_IN_REQUEST_CODE = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,16 +46,15 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             case R.id.btnLoginmail:
 
                 FirebaseUser user = mAuth.getCurrentUser();
-                if(user==null){
-                startActivityForResult(
-                        AuthUI.getInstance()
-                                .createSignInIntentBuilder()
-                                .build(),
-                        SIGN_IN_REQUEST_CODE
-                );
+                if (user == null) {
+                    startActivityForResult(
+                            AuthUI.getInstance()
+                                    .createSignInIntentBuilder()
+                                    .build(),
+                            SIGN_IN_REQUEST_CODE
+                    );
 
-                }
-                else
+                } else
                     startActivity(new Intent(getApplicationContext(), SignInActivity.class));
 
                 break;
@@ -79,12 +79,14 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
 
     }
+
     @Override
     public void onStart() {
 
         super.onStart();
 
     }
+
     // release listener in onStop
     @Override
     public void onStop() {
@@ -93,12 +95,12 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
+
     @Override
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
         FirebaseUser user = mAuth.getCurrentUser();
-        if(user!=null && !user.toString().equals("NULL"))
+        if (user != null && !user.toString().equals(""))
             startActivity(new Intent(getApplicationContext(), SignInActivity.class));
     }
 

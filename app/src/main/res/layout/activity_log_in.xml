@@ -4,19 +4,41 @@
     android:layout_height="fill_parent"
     android:background="@color/colorPrimaryDark"
     android:gravity="center"
-    >
+    android:orientation="vertical">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnLoginmail"
-        android:text="@string/sign_in_profesor"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnLoginAnon"
-        android:text="@string/sign_in_student"
-        android:layout_below="@id/btnLoginmail"/>
+        <Button
+            android:id="@+id/btnLoginmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/BigMargin"
+            android:layout_marginRight="@dimen/BigMargin"
+            android:text="@string/sign_in_profesor" />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/btnLoginAnon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/BigMargin"
+            android:layout_marginRight="@dimen/BigMargin"
+            android:text="@string/sign_in_student" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

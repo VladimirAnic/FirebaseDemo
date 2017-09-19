@@ -7,54 +7,47 @@
     android:orientation="vertical">
 
     <Spinner
+        android:id="@+id/spLectures"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/spLectures"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:entries="@array/Lectures"
-        android:spinnerMode="dropdown"
-        />
+        android:spinnerMode="dropdown" />
 
-        <ListView
-            android:id="@+id/lvdata"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+    <ListView
+        android:id="@+id/lvdata"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        </ListView>
+    </ListView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center|bottom">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btngetdata"
-        android:text="@string/showStatByLecture"
-        />
-            </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btSaveDB"
-        android:text="@string/saveDataToDB"/>
-            </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnGraph"
-        android:text="@string/showStatGraph"/>
-            </LinearLayout>
+        android:gravity="center|bottom"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btngetdata"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/showStatByLecture" />
+
+        <Button
+            android:id="@+id/btSaveDB"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/saveDataToDB" />
+
+        <Button
+            android:id="@+id/btnGraph"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/showStatGraph" />
+
     </LinearLayout>
 </LinearLayout>
