@@ -13,24 +13,12 @@
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:entries="@array/Lectures"
         android:spinnerMode="dropdown" />
-
-    <RelativeLayout
-        android:id="@+id/rlListView"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/spLectures">
-
-        <ListView
-            android:id="@+id/lvShowDB"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:id="@+id/llAdd">
 
         <EditText
             android:id="@+id/etNewStudent"
@@ -46,4 +34,18 @@
             android:layout_weight="1"
             android:text="@string/bAddStudent" />
     </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/rlListView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/spLectures"
+        android:layout_above="@+id/llAdd">
+
+        <ListView
+            android:id="@+id/lvShowDB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+
 </RelativeLayout>
